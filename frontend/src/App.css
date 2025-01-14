@@ -23,7 +23,9 @@ header img {
 }
 
 .main-content {
-  margin-top: 30px;
+  margin-top: 100px;
+  color: white;
+
 }
 
 .sidebar {
@@ -172,7 +174,7 @@ header img {
 }
 
 .second-section ul{
-  font-size:24px;
+  font-size: 35px;
   max-width: 1100px;
 }
 
@@ -180,13 +182,11 @@ header img {
   margin: 10px 0;
 }
 
-/* Стили текста */
-.section-title {
-  font-size: 2em;
-  margin-bottom: 15px;
+.third-section h1 {
+  font-size: 60px;
+  margin-left: 5%;
 }
 
-.section-description {
-  font-size: 1.2em;
-  line-height: 1.6;
+.third-section p {
+  font-size: 35px;
 }

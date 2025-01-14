@@ -16,8 +16,14 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
+from api.views import *
 
 urlpatterns = [
-    path('api/', include('api.urls')),
+    path('admin/', admin.site.urls),
+    path('api/yearly-salary/', YearlySalaryView.as_view(), name='yearly_salary'),
+    path('api/yearly-vacancy-count/', YearlyVacancyCountView.as_view(), name='yearly_vacancy_count'),
+    path('api/city-salary/', CitySalaryView.as_view(), name='city_salary'),
+    path('api/city-vacancy-share/', CityVacancyShareView.as_view(), name='city_vacancy_share'),
+    path('api/top-skills/', TopSkillsView.as_view(), name='top_skills'),
 ]
 

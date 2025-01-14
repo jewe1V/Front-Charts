@@ -81,16 +81,11 @@ export const HomePage = () => {
 
             </section>
 
-            <section className="section">
-                <h2 className="section-title">Необходимые навыки и знания</h2>
-                <ul className="skills-list">
+            <section className="section second-section">
+                <h1>Необходимые навыки и знания</h1>
+                <ul>
                     <li>
-                        <strong>Языки разметки и стилей:</strong>
-                        <ul>
-                            <li>HTML — базовый язык для создания структуры страницы.</li>
-                            <li>CSS — оформление элементов, включая цвета, шрифты, анимации и адаптивный дизайн.
-                            </li>
-                        </ul>
+                        <strong>Языки разметки и стилей:</strong> HTML, CSS
                     </li>
                     <li>
                         <strong>JavaScript:</strong> Язык программирования, позволяющий добавлять интерактивность на
@@ -114,9 +109,9 @@ export const HomePage = () => {
                 </ul>
             </section>
 
-            <section className="section benefits-section">
-                <h2 className="section-title">Преимущества работы Frontend-разработчиком</h2>
-                <ul className="benefits-list">
+            <section className="section second-section">
+                <h1>Преимущества работы Frontend-разработчиком</h1>
+                <ul>
                     <li>Высокая заработная плата.</li>
                     <li>Высокий спрос на специалистов.</li>
                     <li>Гибкость: удалённая работа или фриланс.</li>
@@ -125,9 +120,9 @@ export const HomePage = () => {
                 </ul>
             </section>
 
-            <section className="section specialty-section">
-                <h3 className="sub-title">Особенности профессии</h3>
-                <p className="section-description">
+            <section className="section third-section">
+                <h1>Особенности профессии</h1>
+                <p>
                     Работа frontend-разработчика часто требует не только технической, но и коммуникативной
                     компетентности.
                     Специалисту нужно активно взаимодействовать с дизайнерами, менеджерами проектов и
@@ -138,9 +133,9 @@ export const HomePage = () => {
                 </p>
             </section>
 
-            <section className="section future-section">
-                <h3 className="sub-title">Перспективы развития</h3>
-                <p className="section-description">
+            <section className="section third-section">
+                <h1>Перспективы развития</h1>
+                <p>
                     Frontend-разработка — это лишь часть айсберга. Специалист может расширить свою компетенцию и стать
                     fullstack-разработчиком, освоив серверные технологии (например, Node.js). Также возможна
                     специализация
@@ -148,8 +143,8 @@ export const HomePage = () => {
                 </p>
             </section>
 
-            <section className="section">
-                <h3 className="sub-title">Зачем становиться frontend-разработчиком?</h3>
+            <section className="section third-section">
+                <h1>Зачем становиться frontend-разработчиком?</h1>
                 <p>
                     Профессия frontend-разработчика — это отличная возможность для тех, кто хочет создать что-то
                     красивое,

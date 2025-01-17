@@ -22,18 +22,26 @@ header img {
   width: 140px;
 }
 
-.main-content {
-  margin-top: 100px;
+.main-container {
+  display: flex;
+  justify-content: center; /* Центрирование по горизонтали */
+  height: 100vh; /* Занимает весь экран по высоте */
+  margin-top: 20px;
   color: white;
+}
+
+.content {
 
 }
 
 .sidebar {
   background-color: #2C303E;
-  width: 250px;
+  min-width: 250px;
   padding: 10px;
   border-radius: 14px;
-  margin-left: 13%;
+  margin-right: 50px; /* Отступ от контента */
+  height: 290px;
+  align-self: flex-start; /* Фиксация позиции сайдбара сверху */
 }
 .sidebar-link {
   display: flex;

@@ -1,7 +1,6 @@
 from rest_framework import serializers
-from .models import Vacancy
 
-class VacancySerializer(serializers.ModelSerializer):
-    class Meta:
-        model = Vacancy
-        fields = '__all__'
+class VacancyCityShareSerializer(serializers.Serializer):
+    city = serializers.CharField(source='area_name')
+    percentage = serializers.FloatField()
+    count = serializers.IntegerField()

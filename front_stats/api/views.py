@@ -1,57 +1,16 @@
-from rest_framework.response import Response
-from rest_framework.views import APIView
-from django.db.models import Count
 from collections import Counter
 import requests
+from django.db.models import  F
+from bs4 import BeautifulSoup
+import pandas as pd
+from rest_framework.views import APIView
+from rest_framework.response import Response
+from django.db.models import Count
 from .models import Vacancy
-
-def get_exchange_rate(currency, date):
-    """
-    Получение курса валют для заданной даты.
-    Если валюта рубль или дата отсутствует, возвращаем 1.
-    """
-    if not currency or currency == 'RUB' or not date:
-        return 1
-
-    try:
-        url = f'https://www.cbr.ru/scripts/XML_daily.asp?date_req={date.strftime("%d/%m/%Y")}'
-        response = requests.get(url, timeout=5)
-        response.raise_for_status()
-
-        import xml.etree.ElementTree as ET
-        tree = ET.fromstring(response.content)
-        for item in tree.findall('./Valute'):
-            char_code = item.find('CharCode').text
-            if char_code == currency:
-                return float(item.find('Value').text.replace(',', '.'))
-    except (requests.RequestException, ET.ParseError, AttributeError, ValueError):
-        pass
-
-    # Если курс не найден, возвращаем 1.
-    return 1
-
-
-class YearlySalaryView(APIView):
-    def get(self, request):
-        """
-        Динамика уровня зарплат по годам.
-        """
-        vacancies = Vacancy.objects.all()
-        yearly_data = {}
-
-        for vacancy in vacancies:
-            if vacancy.published_at and (vacancy.salary_from or vacancy.salary_to):
-                year = vacancy.published_at.year
-                salary_avg = ((vacancy.salary_from or 0) + (vacancy.salary_to or 0)) / 2
-                if salary_avg > 10_000_000:  # Игнорируем некорректные значения
-                    continue
-
-                exchange_rate = get_exchange_rate(vacancy.salary_currency, vacancy.published_at)
-                salary_rub = salary_avg * exchange_rate
-                yearly_data.setdefault(year, []).append(salary_rub)
-
-        data = {year: round(sum(salaries) / len(salaries), 2) for year, salaries in yearly_data.items()}
-        return Response(data)
+from .serializers import VacancyCityShareSerializer
+from django.db.models.expressions import Func
+from django.db.models.functions import Cast
+from django.db.models import TextField
 
 
 class YearlyVacancyCountView(APIView):
@@ -62,58 +21,75 @@ class YearlyVacancyCountView(APIView):
         data = Vacancy.objects.values('published_at__year').annotate(count=Count('id')).order_by('published_at__year')
         return Response(data)
 
-
-class CitySalaryView(APIView):
+class VacancyCityShareView(APIView):
     def get(self, request):
-        """
-        Уровень зарплат по городам.
-        """
-        vacancies = Vacancy.objects.all()
-        city_data = {}
-
-        for vacancy in vacancies:
-            if vacancy.area_name and (vacancy.salary_from or vacancy.salary_to):
-                salary_avg = ((vacancy.salary_from or 0) + (vacancy.salary_to or 0)) / 2
-                if salary_avg > 10_000_000:  # Игнорируем некорректные значения
-                    continue
-
-                exchange_rate = get_exchange_rate(vacancy.salary_currency, vacancy.published_at)
-                salary_rub = salary_avg * exchange_rate
-                city_data.setdefault(vacancy.area_name, []).append(salary_rub)
-
-        data = {city: round(sum(salaries) / len(salaries), 2) for city, salaries in city_data.items()}
-        return Response(data)
-
-
-class CityVacancyShareView(APIView):
-    def get(self, request):
-        """
-        Доля вакансий по городам.
-        """
-        vacancies = Vacancy.objects.all()
-        total_vacancies = vacancies.count()
+        total_vacancies = Vacancy.objects.count()
         if total_vacancies == 0:
-            return Response({})
+            return Response([])
 
-        city_vacancy_count = vacancies.values('area_name').annotate(count=Count('id')).order_by('-count')
-        data = {item['area_name']: round(item['count'] / total_vacancies, 4) for item in city_vacancy_count if item['area_name']}
-        return Response(data)
+        # Получение данных по городам, отсортированных по количеству вакансий
+        city_data = (
+            Vacancy.objects
+            .values('area_name')
+            .annotate(count=Count('id'))
+            .annotate(percentage=(Count('id') * 100.0 / total_vacancies))
+            .order_by('-count')
+        )
 
+        # Разделение на топ-19 и остальные
+        top_19 = city_data[:19]
+        other_cities = city_data[19:]
+
+        # Подсчет для оставшихся городов
+        other_count = sum(city['count'] for city in other_cities)
+        other_percentage = round((other_count * 100.0 / total_vacancies), 2) if other_count else 0
+
+        # Округляем проценты в топ-19
+        result = [
+            {
+                'area_name': city['area_name'],
+                'count': city['count'],
+                'percentage': round(city['percentage'], 2)
+            }
+            for city in top_19
+        ]
+
+        # Добавляем "Другие города" в итоговый список
+        if other_count > 0:
+            result.append({
+                'area_name': 'Другие города',
+                'count': other_count,
+                'percentage': other_percentage,
+            })
+
+        serializer = VacancyCityShareSerializer(result, many=True)
+        return Response(serializer.data)
+
+
+class SplitSkills(Func):
+    function = 'unnest'
+    template = "%(function)s(string_to_array(%(expressions)s, '\n'))"
 
 class TopSkillsView(APIView):
     def get(self, request):
-        """
-        ТОП-20 навыков по годам.
-        """
-        vacancies = Vacancy.objects.all()
-        skill_data = {}
+        # Разделение и подсчет навыков
+        skills_data = (
+            Vacancy.objects
+            .exclude(key_skills__isnull=True)  # Исключаем записи без key_skills
+            .exclude(key_skills='')           # Исключаем пустые строки
+            .annotate(skill=SplitSkills(Cast('key_skills', TextField())))  # Разбиваем на навыки
+            .values('skill')                  # Группируем по каждому навыку
+            .annotate(count=Count('skill'))   # Считаем частоту
+            .order_by('-count')               # Сортируем по частоте
+        )
 
-        for vacancy in vacancies:
-            if vacancy.published_at and vacancy.key_skills:
-                year = vacancy.published_at.year
-                skills = vacancy.key_skills.split(',')
-                skill_data.setdefault(year, []).extend([skill.strip() for skill in skills])
+        # Ограничиваем до топ-20 навыков
+        top_skills = skills_data[:20]
 
-        data = {year: Counter(skills).most_common(20) for year, skills in skill_data.items()}
-        return Response(data)
+        # Форматируем вывод
+        result = [
+            {'skill': skill['skill'].strip(), 'count': skill['count']}
+            for skill in top_skills
+        ]
 
+        return Response(result)

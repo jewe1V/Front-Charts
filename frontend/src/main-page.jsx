@@ -5,7 +5,6 @@ import {Outlet} from "react-router-dom";
 import {Header} from "./header";
 import {Footer} from "./footer";
 import { Sidebar } from './sidebar'
-import {SalaryYearGraph} from "./general-statistics/salary-year";
 
 export const MainPage = () => {
 
@@ -17,8 +16,11 @@ export const MainPage = () => {
     <div className='main-page-container'>
         <Header />
 
-        <div className='main-content'>
-            <SalaryYearGraph />
+        <div className='main-container'>
+            < Sidebar />
+            <div className='content'>
+                <Outlet />
+            </div>
         </div>
 
         <Footer />

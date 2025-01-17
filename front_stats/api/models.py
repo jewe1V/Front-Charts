@@ -9,5 +9,3 @@ class Vacancy(models.Model):
     area_name = models.CharField(max_length=255)
     published_at = models.DateField()
 
-    def __str__(self):
-        return self.title

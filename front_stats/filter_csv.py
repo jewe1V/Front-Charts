@@ -55,8 +55,8 @@ def load_csv_to_db(file_path):
 
 
 if __name__ == "__main__":
-    input_csv_path = 'api/analitics/vacancies_2024.csv'
-    filtered_csv_path = 'api/analitics/frontend_vacancies_2024.csv'
+    input_csv_path = 'api/analitics/tables/vacancies_2024.csv'
+    filtered_csv_path = 'api/analitics/tables/frontend_vacancies_2024.csv'
     create_filtered_csv(input_csv_path, filtered_csv_path)
     load_csv_to_db(filtered_csv_path)
 

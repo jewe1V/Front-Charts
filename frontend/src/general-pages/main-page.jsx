@@ -1,10 +1,9 @@
 import { useEffect } from 'react';
-import Logo from './img/logo.png'
-import './App.css';
+import '../App.css';
 import {Outlet} from "react-router-dom";
-import {Header} from "./header";
-import {Footer} from "./footer";
-import { Sidebar } from './sidebar'
+import {Header} from "../header";
+import {Footer} from "../footer";
+import { Sidebar } from '../sidebar'
 
 export const MainPage = () => {
 

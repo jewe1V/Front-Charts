@@ -1,15 +1,15 @@
 import axios from "axios";
 import {useEffect, useState} from "react";
 import { CountYear } from "./count-year";
-
+import { SalaryYear } from "./salary-year";
 const BASE_URL = "http://127.0.0.1:8000/";
 
 const API_URLS = {
     salaryYear: "general-statistics/yearly-salary/",
-    countYear: 'general-statistics/yearly-vacancy-count/',
     citySalary: 'general-statistics/city-salary/',
     cityVacancy: 'general-statistics/city-vacancy-share/',
     topSkills: 'general-statistics/top-skills/',
+    hhVacancies: 'general-statistics/hh_vacancies/',
 };
 
 const fetchData = async (url, callback) => {
@@ -23,28 +23,30 @@ const fetchData = async (url, callback) => {
 
 export const GeneralStatistics = () => {
     const [salaryYearData, setSalaryYearData] = useState([]);
-    const [countYearData, setCountYearData] = useState([]);
     const [citySalaryData, setCitySalaryData] = useState([]);
     const [cityVacancyData, setCityVacancyData] = useState([]);
     const [topSkillsData, setTopSkillsData] = useState([]);
-
+    const [hhVacanciesData, setHHVacancies] = useState([]);
     useEffect(() => {
         document.title = 'Общая статистика';
-        fetchData(API_URLS.countYear, setCountYearData);
+        fetchData(API_URLS.salaryYear, setSalaryYearData);
+        fetchData(API_URLS.citySalary, setCitySalaryData);
         fetchData(API_URLS.cityVacancy, setCityVacancyData);
-        fetchData(API_URLS.topSkills, topSkillsData);
+        fetchData(API_URLS.topSkills, setTopSkillsData);
+        fetchData(API_URLS.hhVacancies, setHHVacancies);
     }, [])
 
-    console.log(topSkillsData);
+    console.log(`зп-год ${salaryYearData}`);;
+    console.log(`город-зп ${citySalaryData}`);
+    console.log(`кол-во город ${cityVacancyData}`);
+    console.log(`топ 20 скилов ${topSkillsData}`);
+    console.log(`вакансии с HH ${hhVacanciesData}`);
 
     return (
-        <div style={{maxHeight: '700px'}}>
-            <CountYear data={countYearData}/>
-            {cityVacancyData.map((city) => (
-                <p>{city.city}: {city.percentage}% {city.count}</p>
-    )
 
-)}
-</div>
+        <div style={{maxHeight: '700px'}}>
+            <CountYear/>
+            <SalaryYear/>
+        </div>
 )
 }

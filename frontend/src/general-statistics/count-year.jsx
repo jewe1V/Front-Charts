@@ -1,4 +1,5 @@
 import { Line } from "react-chartjs-2";
+import {useState, useEffect} from "react";
 import {
     Chart as ChartJS,
     LineElement,
@@ -8,52 +9,72 @@ import {
     Tooltip,
     Legend
 } from "chart.js";
+import axios from "axios";
 
 // Регистрация модулей Chart.js
 ChartJS.register(LineElement, CategoryScale, LinearScale, PointElement, Tooltip, Legend);
 
-export const CountYear = ({data}) => {
+export const CountYear = () => {
+    const [data, setData] = useState([{}]);
+
+    const fetchData = async (url, callback) => {
+        try {
+            const response = await axios.get(`http://127.0.0.1:8000/general-statistics/yearly-vacancy-count/`);
+            setData(response.data);
+        } catch (error) {
+            console.error("Ошибка при получении данных", error);
+        }
+    };
+
+    useEffect(() => {
+        fetchData();
+    }, [])
 
     const chartData = {
-        labels: data.map((element) => element.published_at__year), // Годы
+        labels: data.map((element) => element.year), // Годы
         datasets: [
             {
                 label: "Количество вакансий",
-                data: data.map((element) => element.count), // Количество вакансий
-                borderColor: "rgba(75, 192, 192, 1)", // Цвет линии
-                backgroundColor: "rgba(75, 192, 192, 0.2)", // Цвет области под линией
-                tension: 0.4, // Интерполяция линий (сглаживание)
+                data: data.map((element) => element.vacancy_count), // Количество вакансий
+                borderColor: 'rgba(0, 255, 191, 0.9)',
+                borderWidth: 3,
+                backgroundColor: 'none',
+                tension: 0.4,
                 fill: true,
             },
         ],
     };
 
     const chartOptions = {
-        responsive: true,
         plugins: {
             legend: {
-                display: true,
-                position: "top",
-            },
-            tooltip: {
-                enabled: true,
+                display: false,
             },
         },
         scales: {
             x: {
-                title: {
-                    display: true,
-                    text: "Годы",
+                border:{
+                    display:false
+                },
+                ticks: {
+                    color: '#737373',
+                    font: {
+                        size: 14,
+                        weight: 700,
+                    },
+                },
+                grid: {
+                    color: '#FFFFFF',
+                    borderColor: '#FFFFFF',
+                    display: false,
                 },
             },
             y: {
-                title: {
-                    display: true,
-                    text: "Количество вакансий",
-                },
-                beginAtZero: true,
+                display: false, // Убираем подписи оси Y
             },
         },
+        responsive: true,
+        maintainAspectRatio: false,
     };
 
     return (
@@ -64,7 +85,7 @@ export const CountYear = ({data}) => {
                 <tr>
                     <th>Годы</th>
                     {data.map((element) => (
-                        <th key={element.published_at__year}>{element.published_at__year}</th>
+                        <th key={element.year}>{element.year}</th>
                     ))}
                 </tr>
                 </thead>
@@ -72,12 +93,12 @@ export const CountYear = ({data}) => {
                 <tr>
                     <td>Количество вакансий</td>
                     {data.map((element) => (
-                        <td key={element.published_at__year}>{element.count}</td>
+                        <td key={element.year}>{element.vacancy_count}</td>
                     ))}
                 </tr>
                 </tbody>
             </table>
-            <div style={{width: "800px"}}>
+            <div style={{width: "800px", height: '400px'}}>
                 <Line data={chartData} options={chartOptions}/>
             </div>
 

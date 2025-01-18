@@ -23,9 +23,10 @@ export const GraphBase = ({data}) => {
                 {
                     label: "Количество вакансий",
                     data: data.map((element) => element.count), // Количество вакансий
-                    borderColor: "rgba(75, 192, 192, 1)", // Цвет линии
-                    backgroundColor: "rgba(75, 192, 192, 0.2)", // Цвет области под линией
-                    tension: 0.4, // Интерполяция линий (сглаживание)
+                    borderColor: 'rgba(0, 255, 191, 0.9)',
+                    borderWidth: 3,
+                    backgroundColor: 'none',
+                    tension: 0.4,
                     fill: true,
                 },
             ],
@@ -36,40 +37,45 @@ export const GraphBase = ({data}) => {
                 {
                     label: "Количество вакансий",
                     data: [], // Пустые данные
-                    borderColor: "rgba(75, 192, 192, 1)", // Цвет линии
-                    backgroundColor: "rgba(75, 192, 192, 0.2)", // Цвет области под линией
-                    tension: 0.4, // Интерполяция линий (сглаживание)
+                    borderColor: 'rgba(0, 255, 191, 0.9)',
+                    borderWidth: 3,
+                    backgroundColor: 'none',
+                    tension: 0.4,
                     fill: true,
                 },
             ],
         };
 
     const chartOptions = {
-        responsive: true,
         plugins: {
             legend: {
-                display: true,
-                position: "top",
-            },
-            tooltip: {
-                enabled: true,
+                display: false,
             },
         },
         scales: {
             x: {
-                title: {
-                    display: true,
-                    text: "Годы",
+                border:{
+                    display:false
+                },
+                ticks: {
+                    color: '#737373',
+                    font: {
+                        size: 14,
+                        weight: 700,
+                    },
+                },
+                grid: {
+                    color: '#FFFFFF',
+                    borderColor: '#FFFFFF',
+                    display: false,
                 },
             },
             y: {
-                title: {
-                    display: true,
-                    text: "Количество вакансий",
-                },
-                beginAtZero: true,
+                display: false, // Убираем подписи оси Y
             },
         },
+        responsive: true,
+        maintainAspectRatio: false,
     };
 
     return (

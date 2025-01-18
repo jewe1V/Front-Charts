@@ -10,7 +10,7 @@ import { NavLink } from 'react-router-dom';
 export const Sidebar = () => {
 
     const menuItems = [
-        { path: '', name: 'Домашняя страница', icon: homeIcon },
+        { path: 'main', name: 'Главная страница', icon: homeIcon },
         { path: 'general-statistics', name: 'Общая статистика', icon: generalStatisticsIcon },
         { path: 'demand', name: 'Востребованность', icon: demandIcon },
         { path: 'geography', name: 'География', icon: geographyIcon },

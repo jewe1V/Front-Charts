@@ -89,14 +89,6 @@ footer {
   width: 100%;
 }
 
-
-.home-page-container {
-  color: #ffffff; /* Белый текст */
-  scroll-snap-type: y mandatory; /* Включаем snapping */
-  overflow-y: scroll; /* Прокрутка по вертикали */
-  height: 100vh; /* Высота окна браузера */
-}
-
 header {
   border-bottom: 1px solid #2C303E;
   background-color: #222632;
@@ -112,7 +104,7 @@ header img {
 }
 
 .data-table {
-  width: 900px;
+  width: 1000px;
   text-align: center;
   table-layout: fixed;
   border-collapse: separate;
@@ -130,7 +122,7 @@ header img {
 .data-table thead tr th {
 
   height: 40px;
-  width: 82px; /* Явно задаем ширину для всех ячеек */
+   /* Явно задаем ширину для всех ячеек */
   border: none; /* Граница для визуализации */
 
 }
@@ -196,7 +188,6 @@ header img {
 
 
 .vacancy-description {
-
   padding: 12px;
   background-color: rgba(49, 65, 87, 0.8);
   border: 1px solid #2C303E;
@@ -243,109 +234,92 @@ header img {
 }
 
 
-
-/* Общий стиль для каждой секции */
-.section {
-  scroll-snap-align: start; /* Каждая секция фиксируется в начале */
-  height: 100vh; /* Каждая секция занимает весь экран */
-  border-bottom: 1px solid #333333; /* Лёгкое разделение */
-  background-color: #000000;
-  scroll-behavior: smooth;
-
-}
-.first-section {
-  background-repeat: no-repeat;
-  position: relative; /* Устанавливаем контекст для анимации */
-  overflow: hidden; /* Скрываем выходящее за границы содержимое */
-}
-
-.first-section::after {
-  content: '';
-  position: absolute;
-  bottom: -100px;
-  right: -100px;
-  width: 600px;
-  height: 600px;
-  background-image: url('./img/home-page/first-section.png');
-  background-size: cover;
-  background-repeat: no-repeat;
-  background-position: center;
-  opacity: 0;
-  transform: translate(50%, 50%);
-}
-
-.first-section.animate::after {
-  animation: slideIn 1.5s ease-in-out forwards;
-}
-
-@keyframes slideIn {
-  from {
-    transform: translate(50%, 50%);
-    opacity: 0;
-  }
-  to {
-    transform: translate(0, 0);
-    opacity: 1;
-  }
-}
-
-
-.description-content {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
+.home-page-container {
+  color: #e0e0e0; /* Светлый текст */
+  font-family: 'Roboto', Arial, sans-serif; /* Современный шрифт */
+  margin: 0;
+  padding: 0;
   padding: 20px;
+  max-width: 1200px;
 }
 
-.description-content h1 {
-  font-size: 70px;
-  align-items: center;
-  margin-top: 10%;
-  margin-left: 5%;
-  animation: slideIn 1.5s ease-in-out forwards;
-
+.home-page-container img{
+  width: 500px;
+  border-radius: 16px;
+  margin-left: 260px;
 }
 
-.first-section-description {
-  width: 70%;
-  font-size: 35px;
-  z-index: 2;
-  padding: 0 25px 25px 0;
-  border-radius: 30px;
-  margin-left: 5%;
-  color: white; /* Убедитесь, что цвет текста контрастирует с фоном */
-  text-shadow: 3px 3px 1px rgba(0, 0, 0, 1); /* Добавляет тень к тексту */
-  animation: slideIn 1.5s ease-in-out forwards;
+/* Стили для секций */
+.section {
+  margin-bottom: 30px;
+  padding: 20px;
+  padding-top: 1px;
+  border-radius: 16px;
+  background-color: #2C303E ;
+}
 
+.first-section {
+  border-left: 5px solid #c1c1c1; /* Акцентная линия */
 }
 
 .second-section {
+
+}
+
+.third-section {
+}
+
+/* Заголовки */
+h1 {
+  font-size: 32px;
+  font-weight: 700;
+  margin-bottom: 15px;
+}
+
+/* Параграфы */
+p {
+  line-height: 1.6;
+  font-size: 18px;
+}
+
+/* Стили для списка */
+ul {
   margin: 0;
-  padding: 0;
-  position: relative;
+  padding-left: 20px;
 }
 
-.second-section h1{
-
-  font-size: 60px;
-  align-items: center;
-  margin-left: 5%;
+section ul li {
+  margin-bottom: 10px;
+  font-size: 16px;
 }
 
-.second-section ul{
-  font-size: 35px;
-  max-width: 1100px;
+li strong {
+
 }
 
-.second-section li{
-  margin: 10px 0;
+/* Акцентные элементы */
+.first-section-description {
+  font-style: italic;
+  color: #d1d1d1;
 }
 
-.third-section h1 {
-  font-size: 60px;
-  margin-left: 5%;
+/* Адаптивность */
+@media (max-width: 768px) {
+  .home-page-container {
+    padding: 10px;
+  }
+
+  h1 {
+    font-size: 24px;
+  }
+
+  p, li {
+    font-size: 14px;
+  }
 }
 
-.third-section p {
-  font-size: 35px;
+.computer-img {
+  margin-top: -100px !important;
+  margin-bottom: -100px !important;
+  margin-left: 625px !important;
 }

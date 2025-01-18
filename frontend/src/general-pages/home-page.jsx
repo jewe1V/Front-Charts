@@ -1,36 +1,11 @@
 import { useEffect } from "react";
+import memeImg from '../img/home-page/meme.png'
+import computerImg from '../img/home-page/l-program-hero.png'
 
 export const HomePage = () => {
     useEffect(() => {
-        document.title = 'Знакомство с Frontend'
-        const observer = new IntersectionObserver(
-            (entries) => {
-                entries.forEach((entry) => {
-                    const section = entry.target;
-
-                    if (entry.isIntersecting) {
-                        section.classList.add("animate");
-                    } else {
-                        section.classList.remove("animate");
-                    }
-                });
-            },
-            { threshold: 0.5 } // Активируется, когда 50% секции видны
-        );
-
-        const firstSection = document.querySelector(".first-section");
-
-        if (firstSection) {
-            observer.observe(firstSection);
-        }
-
-        // Очищаем наблюдателя при размонтировании компонента
-        return () => {
-            if (firstSection) {
-                observer.unobserve(firstSection);
-            }
-        };
-    }, []);
+        document.title = 'Главная'
+    });
     return (
         <div className='home-page-container'>
             <section className="section first-section">
@@ -48,7 +23,7 @@ export const HomePage = () => {
 
                 </div>
             </section>
-
+            <img className='computer-img' src={computerImg}/>
             <section className="section second-section">
                 <div>
                     <h1>Задачи Frontend-разработчика</h1>
@@ -150,6 +125,8 @@ export const HomePage = () => {
                     карьере с перспективами роста, то эта профессия для вас!
                 </p>
             </section>
+
+            <img src={memeImg}/>
         </div>
     );
 }

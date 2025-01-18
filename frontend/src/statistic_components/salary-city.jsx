@@ -22,14 +22,14 @@ const HalfTable = ({ data }) => {
         <table
             key={key}
             border="1"
-            className="data-table"
+            className="data-table city-table"
         >
             <thead>
             <tr>
                 <th>Регион</th>
                 {dataPart.map((element) => (
                     <th
-                        style={{ fontSize: "12px", fontWeight: "400" }}
+                        style={{ fontSize: "13px", fontWeight: "400" }}
                         key={element.area_name}
                     >
                         {element.area_name}

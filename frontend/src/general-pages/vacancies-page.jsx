@@ -6,6 +6,8 @@ export const VacanciesPage = () => {
     const [loading, setLoading] = useState(true);
 
     useEffect(() => {
+        document.title = 'Последние вакансии'
+
         const fetchVacancies = async () => {
             try {
                 const response = await fetch('http://127.0.0.1:8000/general-statistics/hh_vacancies/');

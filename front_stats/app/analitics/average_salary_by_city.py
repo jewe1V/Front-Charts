@@ -88,7 +88,6 @@ def calculate_average_salary_by_city(vacancies_filtered, cities_to_include):
 
 result = calculate_average_salary_by_city(vacancies_filtered, cities_to_include)
 
-# Добавляем колонку id
 result.insert(0, 'id', range(1, len(result) + 1))
 
 conn = sqlite3.connect('../../db.sqlite3')

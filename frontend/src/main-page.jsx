@@ -17,7 +17,7 @@ export const MainPage = () => {
         <Header />
 
         <div className='main-container'>
-            < Sidebar />
+            <Sidebar />
             <div className='content'>
                 <Outlet />
             </div>

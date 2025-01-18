@@ -2,6 +2,10 @@ import axios from "axios";
 import {useEffect, useState} from "react";
 import { CountYear } from "./count-year";
 import { SalaryYear } from "./salary-year";
+import { SalaryCity } from "./salary-city";
+import { CountCity } from "./count-city";
+import { TopSkills } from "./top-skills";
+
 const BASE_URL = "http://127.0.0.1:8000/";
 
 const API_URLS = {
@@ -36,7 +40,7 @@ export const GeneralStatistics = () => {
         fetchData(API_URLS.hhVacancies, setHHVacancies);
     }, [])
 
-    console.log(`зп-год ${salaryYearData}`);;
+    console.log(`зп-год ${salaryYearData}`);
     console.log(`город-зп ${citySalaryData}`);
     console.log(`кол-во город ${cityVacancyData}`);
     console.log(`топ 20 скилов ${topSkillsData}`);
@@ -44,9 +48,12 @@ export const GeneralStatistics = () => {
 
     return (
 
-        <div style={{maxHeight: '700px'}}>
-            <CountYear/>
+        <div>
             <SalaryYear/>
+            <CountYear />
+            <SalaryCity />
+            <CountCity />
+            <TopSkills />
         </div>
 )
 }

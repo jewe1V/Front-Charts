@@ -14,6 +14,47 @@ import axios from "axios";
 // Регистрация модулей Chart.js
 ChartJS.register(LineElement, CategoryScale, LinearScale, PointElement, Tooltip, Legend);
 
+const HalfTable = ({ data }) => {
+    const midIndex = Math.ceil(data.length / 2); // Находим середину массива
+    const firstHalf = data.slice(0, midIndex); // Первая половина данных
+    const secondHalf = data.slice(midIndex); // Вторая половина данных
+
+    const renderTable = (dataPart, key) => (
+        <table
+            key={key}
+            border="1"
+            className='data-table'
+        >
+            <thead>
+            <tr>
+                <th >Годы</th>
+                {dataPart.map((element) => (
+                    <th style={{fontWeight:'400'}} key={element.year}>{element.year}</th>
+                ))}
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+                <td style={{fontSize:'14px', fontWeight:'400'}}>Уровень зарплат</td>
+                {dataPart.map((element) => (
+                    <td style={{fontSize:'14px', fontWeight:'400'}} key={element.year}>{element.average_salary
+                        ? element.average_salary.toString().split('.')[0]
+                        : ''} ₽</td>
+                ))}
+            </tr>
+            </tbody>
+        </table>
+    );
+
+    return (
+        <div className='table-container'>
+            {renderTable(firstHalf, "firstHalf")}
+            {renderTable(secondHalf, "secondHalf")}
+        </div>
+    );
+};
+
+
 export const SalaryYear = () => {
     const [data, setData] = useState([{}]);
 
@@ -44,6 +85,8 @@ export const SalaryYear = () => {
             },
         ],
     };
+
+
 
     const chartOptions = {
         plugins: {
@@ -79,26 +122,9 @@ export const SalaryYear = () => {
 
     return (
         <div>
-            <h2>Динамика уровня зарплат по годам, ₽</h2>
-            <table border="1" style={{width: "100%", textAlign: "center", marginTop: "20px"}}>
-                <thead>
-                <tr>
-                    <th>Годы</th>
-                    {data.map((element) => (
-                        <th key={element.year}>{element.year}</th>
-                    ))}
-                </tr>
-                </thead>
-                <tbody>
-                <tr>
-                    <td>Уровень зарплат</td>
-                    {data.map((element) => (
-                        <td key={element.year}>{element.average_salary}</td>
-                    ))}
-                </tr>
-                </tbody>
-            </table>
-            <div style={{width: "800px", height: '400px'}}>
+            <h2>Динамика уровня зарплат по годам</h2>
+            <HalfTable data={data} />
+            <div className='graph-container'>
                 <Line data={chartData} options={chartOptions}/>
             </div>
 

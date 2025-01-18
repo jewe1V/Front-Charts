@@ -25,21 +25,29 @@ header img {
 .main-container {
   display: flex;
   justify-content: center; /* Центрирование по горизонтали */
-  height: 100vh; /* Занимает весь экран по высоте */
+  min-height: 100vh; /* Занимает весь экран по высоте */
+  min-width: 1400px;
   margin-top: 20px;
   color: white;
 }
 
 .content {
-
+  border: 1px solid #2C303E;
+  border-radius: 16px;
+  padding: 16px;
 }
+
+.content div h2{
+  margin-left: 20px;
+}
+
 
 .sidebar {
   background-color: #2C303E;
   min-width: 250px;
   padding: 10px;
   border-radius: 14px;
-  margin-right: 50px; /* Отступ от контента */
+  margin-right: 20px; /* Отступ от контента */
   height: 290px;
   align-self: flex-start; /* Фиксация позиции сайдбара сверху */
 }
@@ -84,6 +92,7 @@ header {
   border-bottom: 1px solid #2C303E;
   background-color: #222632;
 }
+
 header img {
   background-color: #000000;
   margin: 25px 0 20px 0;
@@ -92,6 +101,56 @@ header img {
   margin-left: 20%;
   width: 140px;
 }
+
+.data-table {
+  width: 900px;
+  text-align: center;
+  table-layout: fixed;
+  border-collapse: separate;
+  border: none;
+  border-spacing: 0;
+  margin: 0 auto;
+}
+
+.data-table:first-child {
+  border-radius: 12px;
+  overflow: hidden;
+}
+
+.data-table tbody tr td,
+.data-table thead tr th {
+
+  height: 40px;
+  width: 82px; /* Явно задаем ширину для всех ячеек */
+  border: none; /* Граница для визуализации */
+
+}
+
+.data-table thead tr th {
+  background-color: #262930; /* Фон заголовка для наглядности */
+  color: #fff; /* Белый текст для контраста */
+}
+
+.table-container {
+  padding: 10px; /* Добавляем отступы вокруг таблицы */
+}
+
+
+.graph-container {
+  width: 900px;
+  height: 450px;
+  margin: 0 auto
+ }
+
+.count-year-container {
+  margin-top: 60px;
+}
+
+
+
+
+
+
 
 /* Общий стиль для каждой секции */
 .section {

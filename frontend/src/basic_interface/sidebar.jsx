@@ -1,9 +1,9 @@
-import homeIcon from './img/sidebar/main.svg';
-import generalStatisticsIcon from './img/sidebar/general-statistics.svg';
-import demandIcon from './img/sidebar/demand.svg';
-import geographyIcon from './img/sidebar/geography.svg';
-import skillsIcon from './img/sidebar/skills.svg';
-import latestVacanciesIcon from './img/sidebar/latest-vacancies.svg';
+import homeIcon from '../img/sidebar/main.svg';
+import generalStatisticsIcon from '../img/sidebar/general-statistics.svg';
+import demandIcon from '../img/sidebar/demand.svg';
+import geographyIcon from '../img/sidebar/geography.svg';
+import skillsIcon from '../img/sidebar/skills.svg';
+import latestVacanciesIcon from '../img/sidebar/latest-vacancies.svg';
 
 import { NavLink } from 'react-router-dom';
 

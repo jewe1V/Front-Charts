@@ -7,6 +7,7 @@ import { GeneralStatisticsPage } from './general-pages/general-statistics-page'
 import { DemandPage } from "./general-pages/demand-page";
 import { GeographyPage } from "./general-pages/geography-page";
 import { SkillsPage } from "./general-pages/skills-page";
+import { VacanciesPage } from "./general-pages/vacancies-page";
 
 createRoot(document.getElementById('root')).render(
 <StrictMode>
@@ -18,7 +19,7 @@ createRoot(document.getElementById('root')).render(
                 <Route path='demand' element={<DemandPage />} />
                 <Route path='geography' element={<GeographyPage />} />
                 <Route path='skills' element={<SkillsPage />} />
-                <Route path='latest-vacancies' element={<GeneralStatisticsPage />} />
+                <Route path='latest-vacancies' element={<VacanciesPage />} />
             </Route>
 
         </Routes>

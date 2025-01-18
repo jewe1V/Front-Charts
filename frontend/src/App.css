@@ -12,14 +12,20 @@ body {
 header {
   border-bottom: 1px solid #2C303E;
   background-color: #222632;
+  min-width: 1400px;
+  display: flex;
+  justify-content: center;
 }
-header img {
+
+header div{
+  width:1400px;
+}
+
+header div img {
   background-color: #000000;
-  margin: 25px 0 20px 0;
   padding: 5px 12px 7px 8px;
   border-radius: 5px;
-  margin-left: 20%;
-  width: 140px;
+  margin-left: 40px;
 }
 
 .main-container {
@@ -32,6 +38,7 @@ header img {
 }
 
 .content {
+  width: 1062px;
   border: 1px solid #2C303E;
   border-radius: 16px;
   padding: 16px;
@@ -71,13 +78,15 @@ header img {
 }
 
 footer {
-  font-size: 90%;
+  font-size: 15px;
   margin-top: 25px;
   padding-top: 40px;
-  padding-bottom: 20px;
+  padding-bottom: 25px;
   border-top: 1px solid #2C303E;
   color: #fff;
   text-align: center;
+  min-width: 1400px;
+  width: 100%;
 }
 
 
@@ -146,9 +155,92 @@ header img {
   margin-top: 60px;
 }
 
+.vacancies-container {
+  margin: 5px 20px;
+  padding: 5px 25px;
+  border: 1px solid #2C303E;
+  border-radius: 14px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  background-color: #2C303E ;
+}
+
+.vacancies-header {
+  margin-left: 20px !important;
+}
+
+.vacancies-container h2 {
+  font-size: 28px;
+  margin-left: 0px !important;
+}
+
+.skills-container {
+  margin-top: -14px;
+  margin-bottom: 15px;
+  display: flex; /* Включает flexbox */
+  flex-wrap: wrap; /* Разрешает перенос элементов на новую строку */
+  gap: 10px; /* Задает расстояние между элементами */
+}
+
+.skills-container span {
+  background-color: #464b5e;
+  padding: 5px 8px;
+  border-radius: 8px;
+  color: #fff; /* Цвет текста */
+  margin: 0; /* Убираем отступы */
+}
+
+.vacancy-company {
+  margin-top: 0;
+  font-size: 18px;
+}
 
 
+.vacancy-description {
 
+  padding: 12px;
+  background-color: rgba(49, 65, 87, 0.8);
+  border: 1px solid #2C303E;
+  border-radius: 14px;
+  margin-right: 20px;
+  padding: 5px 20px 15px 20px;
+  line-height: 30px;
+  font-size: 17px;
+}
+
+.description-btn {
+  font-size: 14px;
+  font-weight: 500;
+  background-color: #46648f;
+  text-decoration: none;
+  cursor: pointer;
+  color: white;
+  padding: 7px 10px;
+  border:none;
+  border-radius: 8px;
+}
+.vacancy-short-info {
+  display: flex;
+  justify-content: space-between;
+}
+.vacancy-salary {
+  background-color: #464b5e;
+  margin: 0;
+  margin-right: 22px;
+  margin-top: -12px;
+  margin-bottom: 10px;
+  padding: 10px;
+  font-size: 18px;
+  color: #f0f0f0; /* Светлый текст для тёмного фона */
+  border-radius: 12px; /* Закругляем углы */
+  font-weight: 400; /* Полужирный текст */
+  text-align: center; /* Выравнивание текста по центру */
+}
+
+.vacancy-date {
+  position: sticky;
+  color: #9c9b9b;
+  text-align: right;
+}
 
 
 

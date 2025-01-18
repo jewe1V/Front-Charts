@@ -78,7 +78,7 @@ def calculate_average_salary_by_city(vacancies_filtered, cities_to_include):
         result = pd.concat(
             [
                 result,
-                pd.DataFrame({'area_name': ['Другие города'], 'avg_salary_rub': [round(other_avg_salary, 2)]}),
+                pd.DataFrame({'area_name': ['Др. города'], 'avg_salary_rub': [round(other_avg_salary, 2)]}),
             ],
             ignore_index=True,
         )

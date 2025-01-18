@@ -87,7 +87,7 @@ export const CountCity = () => {
             {
                 label: "Количество вакансий",
                 data: data.map((element) => element.vacancy_count), // Уровень зарплат
-                backgroundColor: "rgba(255,110,46,0.8)", // Цвет столбцов
+                backgroundColor: "rgba(215,132,237,0.9)", // Цвет столбцов
                 borderRadius: 5, // Скругление углов столбцов
             },
         ],

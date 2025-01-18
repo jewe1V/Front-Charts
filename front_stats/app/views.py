@@ -1,6 +1,4 @@
 from datetime import datetime, timedelta
-import html
-import re
 import requests
 from rest_framework.views import APIView
 from rest_framework.response import Response
@@ -65,13 +63,9 @@ class FetchVacanciesAPIView(APIView):
                 if detail_response.status_code == 200:
                     detail_data = detail_response.json()
 
-                    description = html.unescape(
-                        re.sub(r'<[^>]*>', '', detail_data.get('description', 'Описание не доступно'))
-                    )
-
                     vacancy_data = {
                         "title": vacancy['name'],
-                        "description": description,
+                        "description": detail_data.get('description', 'Не указано'),
                         "skills": ', '.join([skill['name'] for skill in detail_data.get('key_skills', [])]),
                         "company": vacancy['employer']['name'] if vacancy.get('employer') else 'Не указано',
                         "salary_from": vacancy['salary']['from'] if vacancy['salary'] and vacancy['salary'].get('from') else None,

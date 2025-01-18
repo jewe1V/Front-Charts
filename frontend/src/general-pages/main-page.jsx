@@ -1,9 +1,9 @@
 import { useEffect } from 'react';
 import '../App.css';
 import {Outlet} from "react-router-dom";
-import {Header} from "../header";
-import {Footer} from "../footer";
-import { Sidebar } from '../sidebar'
+import {Header} from "../basic_interface/header";
+import {Footer} from "../basic_interface/footer";
+import { Sidebar } from '../basic_interface/sidebar'
 
 export const MainPage = () => {
 

@@ -8,8 +8,8 @@ export const SkillsPage = () => {
     }, []);
 
     return (
-        <>
-            <TopSkills />
-        </>
+        <div style={{marginTop: '-40px'}}>
+            <TopSkills url={'general-statistics'}/>
+        </div>
     )
 }

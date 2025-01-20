@@ -63,13 +63,13 @@ const HalfTable = ({ data }) => {
     );
 };
 
-export const CountCity = () => {
+export const CountCity = ({url}) => {
     const [data, setData] = useState([{}]);
 
     const fetchData = async () => {
         try {
             const response = await axios.get(
-                `http://127.0.0.1:8000/general-statistics/city-vacancy-share/`
+                `https://jewelv.pythonanywhere.com/${url}/city-vacancy-share/`
             );
             setData(response.data);
         } catch (error) {
@@ -126,7 +126,7 @@ export const CountCity = () => {
     };
 
     return (
-        <div>
+        <div className='count-year-container'>
             <h2>Доля вакансий по городам</h2>
             <HalfTable data={data} />
             <div className="graph-container" style={{marginTop:'20px'}}>

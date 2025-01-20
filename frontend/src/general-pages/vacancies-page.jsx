@@ -10,7 +10,7 @@ export const VacanciesPage = () => {
 
         const fetchVacancies = async () => {
             try {
-                const response = await fetch('http://127.0.0.1:8000/general-statistics/hh_vacancies/');
+                const response = await fetch('https://jewelv.pythonanywhere.com/general-statistics/hh_vacancies/');
                 if (!response.ok) {
                     throw new Error('Ошибка загрузки данных');
                 }

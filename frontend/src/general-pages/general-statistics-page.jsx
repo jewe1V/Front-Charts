@@ -13,11 +13,11 @@ export const GeneralStatisticsPage = () => {
 
     return (
         <>
-            <SalaryYear/>
-            <CountYear />
-            <SalaryCity />
-            <CountCity />
-            <TopSkills />
+            <SalaryYear url={'common'}/>
+            <CountYear url={'common'}/>
+            <SalaryCity url={'common'}/>
+            <CountCity url={'common'} />
+            <TopSkills url={'common'}/>
         </>
     )
 }

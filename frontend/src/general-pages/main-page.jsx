@@ -14,14 +14,12 @@ export const MainPage = () => {
   return (
     <div className='main-page-container'>
         <Header />
-
         <div className='main-container'>
             <Sidebar />
             <div className='content'>
                 <Outlet />
             </div>
         </div>
-
         <Footer />
     </div>
   );

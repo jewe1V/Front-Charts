@@ -20,11 +20,18 @@ from app.views import *
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+    path('common/city-salary/', CommonSalaryByCityView.as_view(), name='common-city-salary'),
+    path('common/yearly-salary/', CommonSalaryByYearView.as_view(), name='common-yearly-salary'),
+    path('common/city-vacancy-share/', CommonVacanciesByCityView.as_view(), name='common-city-vacancy'),
+    path('common/yearly-vacancy-count/', CommonVacanciesByYearView.as_view(), name='common-yearly-vacancy'),
+    path('common/top-skills/<int:year>/', CommonTopSkillsView.as_view(), name='common-top-skills'),
+
+
     path('general-statistics/city-salary/', SalaryByCityView.as_view(), name='city-salary'),
     path('general-statistics/yearly-salary/', SalaryByYearView.as_view(), name='yearly-salary'),
     path('general-statistics/city-vacancy-share/', VacanciesByCityView.as_view(), name='city-vacancy'),
     path('general-statistics/yearly-vacancy-count/', VacanciesByYearView.as_view(), name='yearly-vacancy'),
-    path('general-statistics/top-skills/', TopSkillsView.as_view(), name='top-skills'),
+    path('general-statistics/top-skills/<int:year>/', TopSkillsView.as_view(), name='top-skills'),
     path('general-statistics/hh_vacancies/', FetchVacanciesAPIView.as_view(), name='vacancy-list'),
 ]
 

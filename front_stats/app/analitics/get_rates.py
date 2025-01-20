@@ -35,7 +35,7 @@ def fetch_exchange_rates(date_str, currency_list):
 
 
 start_date = '2003-01-01'
-end_date = '2023-12-31'
+end_date = '2024-12-31'
 date_range = pd.date_range(start=start_date, end=end_date, freq='MS')
 currency_codes = ['BYR', 'USD', 'EUR', 'KZT', 'UAH', 'AZN', 'KGS', 'UZS', 'GEL', 'BYN']
 
@@ -45,4 +45,4 @@ for current_date in date_range:
     rates_on_date = fetch_exchange_rates(formatted_date, currency_codes)
     exchange_data.append(rates_on_date)
 
-pd.DataFrame(exchange_data).to_csv('tables/rates.csv', index=False)
+pd.DataFrame(exchange_data).to_csv('rates.csv', index=False)

@@ -66,13 +66,13 @@ const HalfTable = ({ data }) => {
     );
 };
 
-export const SalaryCity = () => {
+export const SalaryCity = ({url}) => {
     const [data, setData] = useState([{}]);
 
     const fetchData = async () => {
         try {
             const response = await axios.get(
-                `http://127.0.0.1:8000/general-statistics/city-salary/`
+                `https://jewelv.pythonanywhere.com/${url}/city-salary/`
             );
             setData(response.data);
         } catch (error) {
@@ -129,7 +129,7 @@ export const SalaryCity = () => {
     };
 
     return (
-        <div>
+        <div className='count-year-container'>
             <h2>Уровень зарплат по городам</h2>
             <HalfTable data={data} />
             <div className="graph-container" style={{marginTop:'20px'}}>

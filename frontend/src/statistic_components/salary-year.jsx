@@ -55,12 +55,12 @@ const HalfTable = ({ data }) => {
 };
 
 
-export const SalaryYear = () => {
+export const SalaryYear = ({url}) => {
     const [data, setData] = useState([{}]);
 
-    const fetchData = async (url, callback) => {
+    const fetchData = async () => {
         try {
-            const response = await axios.get(`http://127.0.0.1:8000/general-statistics/yearly-salary/`);
+            const response = await axios.get(`https://jewelv.pythonanywhere.com/${url}/yearly-salary/`);
             setData(response.data);
         } catch (error) {
             console.error("Ошибка при получении данных", error);

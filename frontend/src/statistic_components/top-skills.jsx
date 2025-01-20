@@ -1,5 +1,6 @@
-import { Bar } from "react-chartjs-2";
 import { useState, useEffect } from "react";
+import axios from "axios";
+import { Bar } from "react-chartjs-2";
 import {
     Chart as ChartJS,
     BarElement,
@@ -8,7 +9,6 @@ import {
     Tooltip,
     Legend,
 } from "chart.js";
-import axios from "axios";
 
 // Регистрация модулей Chart.js
 ChartJS.register(BarElement, CategoryScale, LinearScale, Tooltip, Legend);
@@ -19,11 +19,7 @@ const HalfTable = ({ data }) => {
     const secondHalf = data.slice(midIndex); // Вторая половина данных
 
     const renderTable = (dataPart, key) => (
-        <table
-            key={key}
-            border="1"
-            className="data-table city-table"
-        >
+        <table key={key} border="1" className="data-table city-table">
             <thead>
             <tr>
                 <th>Навык</th>
@@ -63,13 +59,15 @@ const HalfTable = ({ data }) => {
     );
 };
 
-export const TopSkills = () => {
-    const [data, setData] = useState([{}]);
+export const TopSkills = ({url}) => {
+    const [data, setData] = useState([]); // Храним данные навыков
+    const [year, setYear] = useState(2024); // Храним выбранный год
 
-    const fetchData = async () => {
+    // Получение данных с сервера
+    const fetchData = async (selectedYear) => {
         try {
             const response = await axios.get(
-                `http://127.0.0.1:8000/general-statistics/top-skills/`
+                `https://jewelv.pythonanywhere.com/${url}/top-skills/${selectedYear}/`
             );
             setData(response.data);
         } catch (error) {
@@ -77,16 +75,17 @@ export const TopSkills = () => {
         }
     };
 
+    // Обновляем данные при изменении года
     useEffect(() => {
-        fetchData();
-    }, []);
+        fetchData(year); // Вызов fetchData с текущим годом
+    }, [year]); // Зависимость от year
 
     const chartData = {
-        labels: data.map((element) => element.skill), // Названия городов
+        labels: data.map((element) => element.skill), // Названия навыков
         datasets: [
             {
                 label: "Количество вакансий",
-                data: data.map((element) => element.count), // Уровень зарплат
+                data: data.map((element) => element.count), // Количество вакансий
                 backgroundColor: "rgba(168, 118, 248, 0.9)", // Цвет столбцов
                 borderRadius: 5, // Скругление углов столбцов
             },
@@ -126,10 +125,27 @@ export const TopSkills = () => {
     };
 
     return (
-        <div>
-            <h2>ТОП-20 навыков по годам</h2>
+        <div className='count-year-container'>
+            <h2>ТОП-20 навыков в {year} году</h2>
+
+            {/* Выпадающий список для выбора года */}
+            <select
+                value={year}
+                onChange={(e) => setYear(parseInt(e.target.value, 10))} // Обновление состояния year
+                className={'year-select'}
+            >
+                {[...Array(2024 - 2015 + 1)].map((_, index) => {
+                    const optionYear = 2015 + index;
+                    return (
+                        <option key={optionYear} value={optionYear}>
+                            {optionYear}
+                        </option>
+                    );
+                })}
+            </select>
+
             <HalfTable data={data} />
-            <div className="graph-container" style={{marginTop:'20px'}}>
+            <div className="graph-container" style={{ marginTop: "20px" }}>
                 <Bar data={chartData} options={chartOptions} />
             </div>
         </div>

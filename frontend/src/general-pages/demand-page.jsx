@@ -10,8 +10,8 @@ export const DemandPage = () => {
 
     return (
         <>
-            <SalaryYear />
-            <CountYear />
+            <SalaryYear url={'general-statistics'}/>
+            <CountYear url={'general-statistics'}/>
         </>
     )
 }

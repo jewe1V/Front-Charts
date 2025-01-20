@@ -6,10 +6,47 @@ from rest_framework import status
 from rest_framework.generics import ListAPIView
 from .models import *
 from .serializers import *
+from rest_framework.exceptions import ValidationError
 
 
 # Код для создания данных, помещенных в таблицы БД, для представлений находится
 # в папке FrontStats/front_stats/app/analitics
+
+class CommonSalaryByCityView(ListAPIView):
+    queryset = CommonAverageSalaryByCity.objects.all()
+    serializer_class = CommonSalaryByCitySerializer
+
+
+class CommonSalaryByYearView(ListAPIView):
+    queryset = CommonAverageSalaryByYear.objects.all()
+    serializer_class = CommonSalaryByYearSerializer
+
+
+class CommonVacanciesByCityView(ListAPIView):
+    queryset =  CommonVacanciesByCity.objects.all()
+    serializer_class = CommonVacanciesByCitySerializer
+
+class CommonVacanciesByYearView(ListAPIView):
+    queryset = CommonVacanciesByYear.objects.all()
+    serializer_class = CommonVacanciesByYearSerializer
+
+
+class CommonTopSkillsView(ListAPIView):
+    serializer_class = CommonTopSkillsSerializer
+
+    def get_queryset(self):
+        year = self.kwargs.get('year')
+        if not year:
+            raise ValidationError({"detail": "Year is required."})
+        try:
+            year = int(year)
+        except ValueError:
+            raise ValidationError({"detail": "Year must be a valid integer."})
+        return CommonTopSkills.objects.filter(year=year)
+
+
+
+
 
 class SalaryByCityView(ListAPIView):
     queryset = AverageSalaryByCity.objects.all()
@@ -31,8 +68,17 @@ class VacanciesByYearView(ListAPIView):
 
 
 class TopSkillsView(ListAPIView):
-    queryset = TopSkills.objects.all()
     serializer_class = TopSkillsSerializer
+
+    def get_queryset(self):
+        year = self.kwargs.get('year')
+        if not year:
+            raise ValidationError({"detail": "Year is required."})
+        try:
+            year = int(year)
+        except ValueError:
+            raise ValidationError({"detail": "Year must be a valid integer."})
+        return TopSkills.objects.filter(year=year)
 
 
 class FetchVacanciesAPIView(APIView):

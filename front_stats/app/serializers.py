@@ -1,6 +1,37 @@
 from rest_framework import serializers
 from .models import *
 
+class CommonSalaryByCitySerializer(serializers.ModelSerializer):
+    class Meta:
+        model = CommonAverageSalaryByCity
+        fields = '__all__'
+
+
+class CommonSalaryByYearSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = CommonAverageSalaryByYear
+        fields = '__all__'
+
+
+class CommonVacanciesByCitySerializer(serializers.ModelSerializer):
+    class Meta:
+        model = CommonVacanciesByCity
+        fields = '__all__'
+
+
+class CommonVacanciesByYearSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = CommonVacanciesByYear
+        fields = '__all__'
+
+class CommonTopSkillsSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = CommonTopSkills
+        fields = ['skill', 'count']
+
+
+
+
 class SalaryByCitySerializer(serializers.ModelSerializer):
     class Meta:
         model = AverageSalaryByCity
@@ -27,4 +58,4 @@ class VacanciesByYearSerializer(serializers.ModelSerializer):
 class TopSkillsSerializer(serializers.ModelSerializer):
     class Meta:
         model = TopSkills
-        fields = '__all__'
+        fields = ['skill', 'count']  # Исключили поле 'year'

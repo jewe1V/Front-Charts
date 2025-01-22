@@ -26,8 +26,7 @@ SECRET_KEY = 'django-insecure-x)%9=%!#bc+x-(wxzkqqr62*d3v6jc085=g_6owb%0l%#k3lay
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
-
+ALLOWED_HOSTS = ['front-stats.online', 'www.front-stats.online']
 
 # Application definition
 
@@ -41,7 +40,6 @@ INSTALLED_APPS = [
     'app',
     'rest_framework',
     'corsheaders',
-    'django_celery_beat'
 ]
 
 MIDDLEWARE = [

@@ -146,7 +146,7 @@ export const TopSkills = ({url}) => {
 
             <HalfTable data={data} />
             <div className="graph-container" style={{ marginTop: "20px" }}>
-                <Bar data={chartData} options={chartOptions} />
+                <Bar data={chartData} options={chartOptions} style={{minHeight: "450px"}} />
             </div>
         </div>
     );

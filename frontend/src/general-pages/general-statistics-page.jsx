@@ -13,6 +13,7 @@ export const GeneralStatisticsPage = () => {
 
     return (
         <>
+            <h1 style={{marginBottom: '40px'}}>Общая статистика для всех вакансий</h1>
             <SalaryYear url={'common'}/>
             <CountYear url={'common'}/>
             <SalaryCity url={'common'}/>

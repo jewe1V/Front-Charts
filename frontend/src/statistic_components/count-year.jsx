@@ -35,7 +35,7 @@ const HalfTable = ({ data }) => {
             </thead>
             <tbody>
             <tr>
-                <td style={{fontSize:'14px', fontWeight:'400'}}>Количество вакансий</td>
+                <td style={{fontSize:'14px', fontWeight:'400'}}>Кол-во вакансий</td>
                 {dataPart.map((element) => (
                     <td style={{fontSize:'14px', fontWeight:'400'}} key={element.year}>{element.vacancy_count
                         ? element.vacancy_count.toString().split('.')[0]
